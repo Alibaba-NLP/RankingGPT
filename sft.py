@@ -33,10 +33,8 @@ import transformers
 from torch.utils.data import Dataset
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments, BloomForCausalLM, LlamaTokenizer
 import random
-# import evaluate
-import utils
 import os
-# metric = evaluate.load("rouge")
+
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
@@ -335,7 +333,7 @@ def train():
             cache_dir=training_args.cache_dir,
             model_max_length=training_args.model_max_length,
             padding_side="right",
-            use_fast=False,
+            use_fast=True,
         )
     else:
         tokenizer = transformers.AutoTokenizer.from_pretrained(
@@ -343,7 +341,7 @@ def train():
             cache_dir=training_args.cache_dir,
             model_max_length=training_args.model_max_length,
             padding_side="right",
-            use_fast=False,
+            use_fast=True,
         )
 
     if tokenizer.pad_token is None:
